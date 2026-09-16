@@ -6,6 +6,7 @@
     <Project Path="Labs/Lab_1/Lab_1.csproj" />
     <Project Path="Labs/Lab_2/Lab_2.csproj" />
     <Project Path="Labs/Lab_3/Lab_3.csproj" />
+    <Project Path="Labs/Lab_4/Lab_4.csproj" />
   </Folder>
   <Project Path="1_factory_method/ConsolePar1.csproj" />
   <Project Path="3_builder/3_builder.csproj" />
