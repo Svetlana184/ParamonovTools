@@ -1,4 +1,12 @@
 <Solution>
+  <Folder Name="/Console3/">
+    <Project Path="Console3/ConsoleApp3/ConsoleApp3.csproj" />
+  </Folder>
+  <Folder Name="/Labs/">
+    <Project Path="Labs/Lab_1/Lab_1.csproj" />
+    <Project Path="Labs/Lab_2/Lab_2.csproj" />
+  </Folder>
   <Project Path="ConsolePar1/ConsolePar1.csproj" />
+  <Project Path="Factory/Factory.csproj" />
   <Project Path="Lab2/Lab2.csproj" />
 </Solution>
