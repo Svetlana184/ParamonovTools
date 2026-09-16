@@ -32,21 +32,27 @@ warriorChar.ShowInfo();
 Console.WriteLine("============================= СОЗДАНИЕ ПЕРСОНАЖА ============================= \n1 — Создать Воина \n2 — Создать Мага \n3 — Создать Лучника \n4 — Показать прототипы \n0 — Выход ");
 int charVar = int.Parse(Console.ReadLine()!);
 Character newChar = new Character();
+Console.WriteLine("Выберите имя персонажу:");
+string name = Console.ReadLine()!;
+
 switch (charVar)
 {
     case 1:
         WarriorPrototype warriorPrototype1 = new WarriorPrototype();
         newChar = warriorPrototype1.Clone();
+        newChar.Name = name;
         newChar.ShowInfo();
         break;
     case 2:
         WizardPrototype wizardPrototype = new WizardPrototype();
         newChar = wizardPrototype.Clone();
+        newChar.Name = name;
         newChar.ShowInfo();
         break;
     case 3:
         ArcherPrototype archerPrototype = new ArcherPrototype();
         newChar = archerPrototype.Clone();
+        newChar.Name = name;
         newChar.ShowInfo();
         break;
     case 4:
