@@ -7,9 +7,16 @@
     <Project Path="Labs/Lab_2/Lab_2.csproj" />
     <Project Path="Labs/Lab_3/Lab_3.csproj" />
     <Project Path="Labs/Lab_4/Lab_4.csproj" />
+    <Project Path="Labs/Lab_5/Lab_5.csproj" />
+    <Project Path="Labs/Lab_9/Lab_9.csproj" />
   </Folder>
   <Project Path="1_factory_method/ConsolePar1.csproj" />
   <Project Path="3_builder/3_builder.csproj" />
+  <Project Path="5_singletone/5_singletone.csproj" />
+  <Project Path="6_adapter_game/6_adapter_game.csproj" />
+  <Project Path="7_composite/7_composite.csproj" />
+  <Project Path="8_bridge/8_bridge.csproj" />
+  <Project Path="9_decorator/9_decorator.csproj" />
   <Project Path="Factory/Factory.csproj" />
   <Project Path="Lab2/Lab2.csproj" />
 </Solution>
