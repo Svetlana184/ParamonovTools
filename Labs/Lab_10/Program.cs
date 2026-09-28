@@ -1,4 +1,24 @@
-﻿interface ICharacter
+﻿//настройки
+GameSettings settings = GameSettings.GetInstance();
+settings.MaxLevel = 100;
+settings.Difficulty = "Normal";
+settings.GameName = "RPG GAME";
+settings.GetInfo();
+
+//создание персонажа
+WarriorFactory warriorFactory = new WarriorFactory();
+ICharacter warrior = warriorFactory.CreateCharacter();
+
+//создание комплекта
+WarriorEquipmentFactory warriorEquipmentFactory = new WarriorEquipmentFactory();
+IWeapon warriorWeapon = warriorEquipmentFactory.CreateWeapon();
+IArmor warriorArmor = warriorEquipmentFactory.CreateArmor();
+
+//builder
+CharacterBuilder builder = new CharacterBuilder();
+ICharacter character = builder.setName("Andrew").Build();
+
+interface ICharacter
 {
     string GetType();
 }
@@ -36,7 +56,9 @@ class WarriorFactory : CharacterFactory
 {
     public ICharacter CreateCharacter()
     {
+        Console.WriteLine("создан новый персонаж");
         return new Warrior();
+        
     }
 }
 
@@ -44,6 +66,7 @@ class MageFactory : CharacterFactory
 {
     public ICharacter CreateCharacter()
     {
+        Console.WriteLine("создан новый персонаж");
         return new Mage();
     }
 }
@@ -52,6 +75,7 @@ class ArcherFactory : CharacterFactory
 {
     public ICharacter CreateCharacter()
     {
+        Console.WriteLine("создан новый персонаж");
         return new Archer();
     }
 }
@@ -214,36 +238,36 @@ class Character
         return copyChar;
     }
 }
-class CharacterBuild
+class CharacterBuilder
 {
     private Character character = new Character();
 
-    public CharacterBuild setName(string name)
+    public CharacterBuilder setName(string name)
     {
         character.Name = name;
         return this;
     }
-    public CharacterBuild setLevel(int level)
+    public CharacterBuilder setLevel(int level)
     {
         character.Level = level;
         return this;
     }
-    public CharacterBuild setHealth(int health)
+    public CharacterBuilder setHealth(int health)
     {
         character.Health = health;
         return this;
     }
-    public CharacterBuild setAttack(int attack)
+    public CharacterBuilder setAttack(int attack)
     {
         character.Attack = attack;
         return this;
     }
-    public CharacterBuild setWeapon(IWeapon weapon)
+    public CharacterBuilder setWeapon(IWeapon weapon)
     {
         character.Weapon = weapon;
         return this;
     }
-    public CharacterBuild setArmor(IArmor armor)
+    public CharacterBuilder setArmor(IArmor armor)
     {
         character.Armor = armor;
         return this;
