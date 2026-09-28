@@ -183,6 +183,7 @@ class ArcherEquipmentFactory : IEquipmentFactory
     }
 }
 
+//BUILDER
 class Character
 {
     public string Name;
@@ -200,6 +201,17 @@ class Character
         Console.WriteLine($"Броня {Armor.GetName()}");
         Console.WriteLine($"Уровень {Level}");
         Console.WriteLine($"Урон {Attack}");
+    }
+    public Character Clone()
+    {
+        Character copyChar = new Character();
+        copyChar.Name = this.Name;
+        copyChar.Health = this.Health;
+        copyChar.Attack = this.Attack;
+        copyChar.Level = this.Level;
+        copyChar.Weapon = this.Weapon;
+        copyChar.Armor = this.Armor;
+        return copyChar;
     }
 }
 class CharacterBuild
@@ -239,5 +251,200 @@ class CharacterBuild
     public Character Build()
     {
         return character;
+    }
+}
+
+//SINGLETON
+class GameSettings
+{
+    private static GameSettings instance;
+    private GameSettings()
+    {
+
+    }
+
+    public static GameSettings GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = new GameSettings();
+        }
+        return instance;
+    }
+
+    public void GetInfo()
+    {
+        Console.WriteLine("MaxLevel " + MaxLevel);
+        Console.WriteLine("SoundVolume " + SoundVolume);
+        Console.WriteLine("GameName " + GameName);
+        Console.WriteLine("Difficulty " + Difficulty);
+    }
+
+    public int MaxLevel;
+    public int SoundVolume;
+    public string GameName;
+    public string Difficulty;
+}
+
+//BRIDGE
+interface IAttack
+{
+    void Attack(string characterName);
+}
+
+class PhysicalAttack : IAttack
+{
+    public void Attack(string characterName)
+    {
+        Console.WriteLine(characterName + " наносит физический урон");
+    }
+}
+class MagicAttack : IAttack
+{
+    public void Attack(string characterName)
+    {
+        Console.WriteLine(characterName + " наносит магический урон");
+    }
+}
+class RangedAttack : IAttack
+{
+    public void Attack(string characterName)
+    {
+        Console.WriteLine(characterName + " наносит урон");
+    }
+}
+class AttackControl
+{
+    protected IAttack attack;
+    public AttackControl(IAttack attack)
+    {
+        this.attack = attack;
+    }
+    public void Attack(string characterName)
+    {
+        attack.Attack(characterName);
+    }
+}
+
+//COMPOSITE
+interface IUnit
+{
+    void Attack();
+}
+class Squad : IUnit
+{
+    private string name;
+    private List<IUnit> items = new List<IUnit>();
+
+    public Squad(string name)
+    {
+        this.name = name;
+    }
+
+    public void Add(IUnit item)
+    {
+        items.Add(item);
+    }
+
+    public void Attack()
+    {
+        Console.WriteLine("Папка: " + name);
+        foreach (IUnit item in items)
+        {
+            item.Attack();
+        }
+    }
+}
+
+//АДАПТЕР
+class OldCombatSystem
+{
+    public void MakeHit(
+        string name,
+        int power)
+    {
+        Console.WriteLine(
+            name + " наносит удар силой " + power
+        );
+    }
+}
+class OldCombatAdapter : IAttack
+{
+    private OldCombatSystem combatSystem;
+    public OldCombatAdapter(OldCombatSystem combatSystem)
+    {
+        this.combatSystem = combatSystem;
+    }
+
+    public void Attack(string characterName)
+    {
+        combatSystem.MakeHit(characterName, 1);
+    }
+}
+
+//ДЕКОРАТОРЫ
+class WeaponDecorator : IWeapon
+{
+    protected IWeapon weapon;
+    public WeaponDecorator(IWeapon weapon)
+    {
+        this.weapon = weapon;
+    }
+    public virtual string GetName()
+    {
+        return weapon.GetName();
+    }
+
+    public virtual int GetDamage()
+    {
+        return weapon.GetDamage();
+    }
+}
+class FireDecorator : WeaponDecorator
+{
+    public FireDecorator(IWeapon weapon) : base(weapon)
+    {
+        
+    }
+    public override string GetName()
+    {
+        return weapon.GetName() + " with fire";
+    }
+
+    public override int GetDamage()
+    {
+        return weapon.GetDamage() + 20;
+    }
+}
+class PoisonDecorator : WeaponDecorator
+{
+    public PoisonDecorator(IWeapon weapon) : base(weapon)
+    {
+        
+    }
+    public override string GetName()
+    {
+        return weapon.GetName() + " with poison";
+    }
+
+    public override int GetDamage()
+    {
+        return weapon.GetDamage() + 10;
+    }
+}
+class CriticalDecorator : WeaponDecorator
+{
+    public CriticalDecorator(IWeapon weapon) : base(weapon)
+    {
+        
+    }
+    public override string GetName()
+    {
+        return weapon.GetName() + " with critical damage";
+    }
+
+    public override int GetDamage()
+    {
+        return weapon.GetDamage() * 2;
     }
 }
