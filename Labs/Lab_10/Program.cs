@@ -16,7 +16,7 @@ IArmor warriorArmor = warriorEquipmentFactory.CreateArmor();
 
 //builder
 CharacterBuilder builder = new CharacterBuilder();
-ICharacter character = builder.setName("Andrew").Build();
+Character character = builder.setName("Andrew").setLevel(10).setArmor(warriorArmor).setWeapon(warriorWeapon).Build();
 
 interface ICharacter
 {
