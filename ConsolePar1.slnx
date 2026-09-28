@@ -8,6 +8,7 @@
     <Project Path="Labs/Lab_3/Lab_3.csproj" />
     <Project Path="Labs/Lab_4/Lab_4.csproj" />
     <Project Path="Labs/Lab_5/Lab_5.csproj" />
+    <Project Path="Labs/Lab_6/Lab_6.csproj" />
     <Project Path="Labs/Lab_9/Lab_9.csproj" />
   </Folder>
   <Project Path="1_factory_method/ConsolePar1.csproj" />
