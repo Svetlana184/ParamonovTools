@@ -10,6 +10,7 @@
     <Project Path="Labs/Lab_4/Lab_4.csproj" />
     <Project Path="Labs/Lab_5/Lab_5.csproj" />
     <Project Path="Labs/Lab_6/Lab_6.csproj" />
+    <Project Path="Labs/Lab_8/Lab_8.csproj" Id="d54aacb4-5f1c-4ec0-a7bc-784fd0fd531f" />
     <Project Path="Labs/Lab_9/Lab_9.csproj" />
     <Project Path="Labs/Lab__7/Lab__7.csproj" Id="da04c4d1-a413-4e19-84b4-f83f58e4a70b" />
   </Folder>
