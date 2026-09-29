@@ -11,6 +11,7 @@
     <Project Path="Labs/Lab_5/Lab_5.csproj" />
     <Project Path="Labs/Lab_6/Lab_6.csproj" />
     <Project Path="Labs/Lab_9/Lab_9.csproj" />
+    <Project Path="Labs/Lab__7/Lab__7.csproj" Id="da04c4d1-a413-4e19-84b4-f83f58e4a70b" />
   </Folder>
   <Project Path="1_factory_method/ConsolePar1.csproj" />
   <Project Path="3_builder/3_builder.csproj" />
