@@ -1,4 +1,5 @@
 ﻿//настройки
+Console.WriteLine("============= Настройка игры =============");
 GameSettings settings = GameSettings.GetInstance();
 settings.MaxLevel = 100;
 settings.Difficulty = "Normal";
@@ -6,25 +7,112 @@ settings.GameName = "RPG GAME";
 settings.GetInfo();
 
 //создание персонажа
+Console.WriteLine("\n\n============= Создание воина =============");
 WarriorFactory warriorFactory = new WarriorFactory();
 ICharacter warrior = warriorFactory.CreateCharacter();
+Console.WriteLine("Создан персонаж: " + warrior.GetType());
 
 //создание комплекта
+Console.WriteLine("\n\n============= Создание комплекта =============");
 WarriorEquipmentFactory warriorEquipmentFactory = new WarriorEquipmentFactory();
 IWeapon warriorWeapon = warriorEquipmentFactory.CreateWeapon();
 IArmor warriorArmor = warriorEquipmentFactory.CreateArmor();
+Console.WriteLine("Оружие: " + warriorWeapon.GetName());
+Console.WriteLine("Броня: " + warriorArmor.GetName());
 
 //builder
+Console.WriteLine("\n\n============= Создание персонажа =============");
 CharacterBuilder builder = new CharacterBuilder();
-Character character = builder.setName("Andrew").setLevel(10).setArmor(warriorArmor).setWeapon(warriorWeapon).Build();
+Character character = new CharacterBuilder()
+            .setName("Andrei")
+            .setLevel(10)
+            .setHealth(150)
+            .setWeapon(warriorWeapon)
+            .setArmor(warriorArmor)
+            .setAttack(new PhysicalAttack())
+            .setType(warrior)
+            .Build();
+character.ShowInfo();
 
-interface ICharacter
+//decorator
+Console.WriteLine("\n\n============= Бафф оружия =============");
+warriorWeapon = new FireDecorator(warriorWeapon);
+Console.WriteLine(warriorWeapon.GetName()); 
+warriorWeapon = new PoisonDecorator(warriorWeapon);
+Console.WriteLine(warriorWeapon.GetName());
+warriorWeapon = new CriticalDecorator(warriorWeapon);
+Console.WriteLine(warriorWeapon.GetName());
+Console.WriteLine("Итоговый урон: " + warriorWeapon.GetDamage());
+
+// Bridge
+Console.WriteLine("\n\n============= Разный тип атак =============");
+character.Attack.Attack(character.Name);
+character.Attack = new MagicAttack();
+character.Attack.Attack(character.Name);
+
+//Adapter
+Console.WriteLine("\n\n============= Атака через старую систему =============");
+OldCombatSystem oldSystem = new OldCombatSystem();
+IAttack adapter = new OldCombatAdapter(oldSystem);
+adapter.Attack(character.Name);
+
+//Prototype
+Console.WriteLine("\n\n============= Клонирование Толика =============");
+Character original = new CharacterBuilder()
+            .setName("Толик")
+            .setLevel(10)
+            .setHealth(150)
+            .setWeapon(warriorEquipmentFactory.CreateWeapon())
+            .setArmor(warriorEquipmentFactory.CreateArmor())
+            .setAttack(new PhysicalAttack())
+            .Build();
+Console.WriteLine("Оригинал:");
+original.ShowInfo();
+
+Character clone = original.Clone();
+clone.Name = "Толик Clone";
+clone.Level = 20;
+Console.WriteLine("\nКлон:");
+clone.ShowInfo();
+Console.WriteLine("\nОригинал после изменения клона:");
+original.ShowInfo();
+
+//Composite
+Console.WriteLine("\n\n============= Создание армии =============");
+ArcherFactory archerFactory = new ArcherFactory();
+MageFactory mageFactory = new MageFactory();
+
+Squad army = new Squad("Army");
+
+ICharacter w1 = warriorFactory.CreateCharacter();
+ICharacter m1 = archerFactory.CreateCharacter();
+
+Squad squad1 = new Squad("Squad 1");
+squad1.Add(warriorFactory.CreateCharacter());
+squad1.Add(warriorFactory.CreateCharacter());
+
+Squad squad2 = new Squad("Squad 2");
+squad2.Add(mageFactory.CreateCharacter());
+
+army.Add(w1);  
+army.Add(m1);
+army.Add(squad1);
+army.Add(squad2);
+
+army.Attack();
+
+
+interface ICharacter : IUnit
 {
     string GetType();
 }
 
 class Warrior : ICharacter
 {
+    public void Attack()
+    {
+        Console.WriteLine("Воин атакует");
+    }
     public string GetType()
     {
         return "Warrior";
@@ -33,6 +121,10 @@ class Warrior : ICharacter
 
 class Mage : ICharacter
 {
+    public void Attack()
+    {
+        Console.WriteLine("Маг атакует");
+    }
     public string GetType()
     {
         return "Mage";
@@ -41,64 +133,60 @@ class Mage : ICharacter
 
 class Archer : ICharacter
 {
+    public void Attack()
+    {
+        Console.WriteLine("Лучник атакует");
+    }
     public string GetType()
     {
         return "Archer";
     }
 }
 
+// ============= CHARACTER FACTORY =============
 interface CharacterFactory
 {
     ICharacter CreateCharacter();
 }
-
 class WarriorFactory : CharacterFactory
 {
     public ICharacter CreateCharacter()
     {
-        Console.WriteLine("создан новый персонаж");
-        return new Warrior();
-        
+        return new Warrior(); 
     }
 }
-
 class MageFactory : CharacterFactory
 {
     public ICharacter CreateCharacter()
     {
-        Console.WriteLine("создан новый персонаж");
         return new Mage();
     }
 }
-
 class ArcherFactory : CharacterFactory
 {
     public ICharacter CreateCharacter()
     {
-        Console.WriteLine("создан новый персонаж");
         return new Archer();
     }
 }
 
+// ============= EQUIPMENT FACTORY =============
 interface IEquipmentFactory
 {
     IWeapon CreateWeapon();
     IArmor CreateArmor();
 }
-
 interface IWeapon
 {
 
     string GetName();
     int GetDamage();
 }
-
 interface IArmor
 {
     string GetName();
     int GetDefence();
 }
-
 class Sword : IWeapon
 {
     public string GetName()
@@ -110,7 +198,6 @@ class Sword : IWeapon
         return 30;
     }
 }
-
 class MagicStaff : IWeapon
 {
     public string GetName()
@@ -122,7 +209,6 @@ class MagicStaff : IWeapon
         return 15;
     }
 }
-
 class Bow : IWeapon
 {
     public string GetName()
@@ -134,7 +220,6 @@ class Bow : IWeapon
         return 20;
     }
 }
-
 class HeavyArmor : IArmor
 {
     public string GetName()
@@ -146,7 +231,6 @@ class HeavyArmor : IArmor
         return 30;
     }
 }
-
 class Robe : IArmor
 {
     public string GetName()
@@ -158,7 +242,6 @@ class Robe : IArmor
         return 20;
     }
 }
-
 class LightArmor : IArmor
 {
     public string GetName()
@@ -170,7 +253,6 @@ class LightArmor : IArmor
         return 10;
     }
 }
-
 class WarriorEquipmentFactory : IEquipmentFactory
 {
     public IWeapon CreateWeapon()
@@ -182,7 +264,6 @@ class WarriorEquipmentFactory : IEquipmentFactory
         return new HeavyArmor();
     }
 }
-
 class MageEquipmentFactory : IEquipmentFactory
 {
     public IWeapon CreateWeapon()
@@ -194,7 +275,6 @@ class MageEquipmentFactory : IEquipmentFactory
         return new Robe();
     }
 }
-
 class ArcherEquipmentFactory : IEquipmentFactory
 {
     public IWeapon CreateWeapon()
@@ -207,7 +287,7 @@ class ArcherEquipmentFactory : IEquipmentFactory
     }
 }
 
-//BUILDER
+// ============= PROTOTYPE =============
 class Character
 {
     public string Name;
@@ -215,7 +295,8 @@ class Character
     public int Health;
     public IWeapon Weapon;
     public IArmor Armor;
-    public int Attack;
+    public IAttack Attack;
+    public ICharacter Type;
     public void ShowInfo()
     {
         Console.WriteLine("Персонаж: ");
@@ -225,6 +306,7 @@ class Character
         Console.WriteLine($"Броня {Armor.GetName()}");
         Console.WriteLine($"Уровень {Level}");
         Console.WriteLine($"Урон {Attack}");
+        Console.WriteLine($"Класс {Type}");
     }
     public Character Clone()
     {
@@ -235,9 +317,11 @@ class Character
         copyChar.Level = this.Level;
         copyChar.Weapon = this.Weapon;
         copyChar.Armor = this.Armor;
+        copyChar.Type = this.Type;
         return copyChar;
     }
 }
+// ============= BUILDER =============
 class CharacterBuilder
 {
     private Character character = new Character();
@@ -257,7 +341,7 @@ class CharacterBuilder
         character.Health = health;
         return this;
     }
-    public CharacterBuilder setAttack(int attack)
+    public CharacterBuilder setAttack(IAttack attack)
     {
         character.Attack = attack;
         return this;
@@ -272,13 +356,18 @@ class CharacterBuilder
         character.Armor = armor;
         return this;
     }
+    public CharacterBuilder setType(ICharacter type)
+    {
+        character.Type = type;
+        return this;
+    }
     public Character Build()
     {
         return character;
     }
 }
 
-//SINGLETON
+// ============= SINGLETON =============
 class GameSettings
 {
     private static GameSettings instance;
@@ -310,7 +399,7 @@ class GameSettings
     public string Difficulty;
 }
 
-//BRIDGE
+// ============= BRIDGE =============
 interface IAttack
 {
     void Attack(string characterName);
@@ -334,7 +423,7 @@ class RangedAttack : IAttack
 {
     public void Attack(string characterName)
     {
-        Console.WriteLine(characterName + " наносит урон");
+        Console.WriteLine(characterName + " наносит урон дистанционно");
     }
 }
 class AttackControl
@@ -350,7 +439,7 @@ class AttackControl
     }
 }
 
-//COMPOSITE
+// ============= COMPOSITE  =============
 interface IUnit
 {
     void Attack();
@@ -372,7 +461,7 @@ class Squad : IUnit
 
     public void Attack()
     {
-        Console.WriteLine("Папка: " + name);
+        Console.WriteLine("Группа: " + name);
         foreach (IUnit item in items)
         {
             item.Attack();
@@ -380,7 +469,7 @@ class Squad : IUnit
     }
 }
 
-//АДАПТЕР
+// ============= АДАПТЕР =============
 class OldCombatSystem
 {
     public void MakeHit(
@@ -406,7 +495,7 @@ class OldCombatAdapter : IAttack
     }
 }
 
-//ДЕКОРАТОРЫ
+// ============= ДЕКОРАТОРЫ =============
 class WeaponDecorator : IWeapon
 {
     protected IWeapon weapon;
