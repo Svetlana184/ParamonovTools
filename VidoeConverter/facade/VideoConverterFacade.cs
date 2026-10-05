@@ -9,32 +9,30 @@ namespace VidoeConverter.facade
 {
     public class VideoConverterFacade
     {
-        private readonly VideoValidation? _validator;
-        private readonly VideoMetadataReader? _metadataReader;
-        private readonly VideoDecoder? _decoder;
-        private readonly VideoResize? _resizer;
-        private readonly VideoEncoder? _encoder;
-        private readonly VideoStorage? _storage;
+        private readonly VideoValidation _validator;
+        private readonly VideoMetadataReader _metadataReader;
+        private readonly VideoProcessingEngine _processingEngine;
 
         public VideoConverterFacade()
         {
             _validator = new VideoValidation();
             _metadataReader = new VideoMetadataReader();
-            _decoder = new VideoDecoder();
-            _resizer = new VideoResize();
-            _encoder = new VideoEncoder();
-            _storage = new VideoStorage();
+            _processingEngine = new VideoProcessingEngine();
         }
 
-        public string Converter(VideoFile video)
+        public async Task<string> ConvertVideoAsync(VideoFile video, int targetWidth, int targetHeight, string targetFormat)
         {
-            _validator?.Validate(video);
-            _metadataReader?.Reader(video);
-            _decoder?.Decode(video);
-            _resizer?.Resizer(video, 1920, 1080);
-            _encoder?.Encode(video, "mp4");
-            return _storage?.Save(video);
-        }
 
+            // 2. Валидация файла
+            _validator.Validate(video);
+
+            // 3. Чтение метаданных
+            await _metadataReader.ReadAsync(video);
+
+            // 4. Транскодирование и изменение размера
+            await _processingEngine.ProcessVideoAsync(video, targetWidth, targetHeight, targetFormat);
+
+            return video.OutputPath ?? throw new Exception("Не удалось сохранить файл.");
+        }
     }
 }
