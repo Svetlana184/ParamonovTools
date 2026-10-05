@@ -5,6 +5,7 @@
   <Folder Name="/Labs/">
     <Project Path="Labs/Lab_1/Lab_1.csproj" />
     <Project Path="Labs/Lab_10/Lab_10.csproj" />
+    <Project Path="Labs/Lab_11_facade/Lab_11_facade.csproj" />
     <Project Path="Labs/Lab_2/Lab_2.csproj" />
     <Project Path="Labs/Lab_3/Lab_3.csproj" />
     <Project Path="Labs/Lab_4/Lab_4.csproj" />
@@ -14,6 +15,7 @@
     <Project Path="Labs/Lab_9/Lab_9.csproj" />
     <Project Path="Labs/Lab__7/Lab__7.csproj" Id="da04c4d1-a413-4e19-84b4-f83f58e4a70b" />
   </Folder>
+  <Project Path="10_facade/10_facade.csproj" />
   <Project Path="1_factory_method/ConsolePar1.csproj" />
   <Project Path="3_builder/3_builder.csproj" />
   <Project Path="5_singletone/5_singletone.csproj" />
