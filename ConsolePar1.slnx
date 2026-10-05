@@ -25,4 +25,5 @@
   <Project Path="9_decorator/9_decorator.csproj" />
   <Project Path="Factory/Factory.csproj" />
   <Project Path="Lab2/Lab2.csproj" />
+  <Project Path="VidoeConverter/VidoeConverter.csproj" />
 </Solution>
