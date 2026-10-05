@@ -7,8 +7,9 @@ namespace VidoeConverter.models
 {
     public class VideoFile
     {
-        public string FilePath {get;}
-        public string Format {get;}
+        public string FilePath { get; set; }
+        public string Format { get; set; }
+        public string? OutputPath { get; set; }
 
         public VideoFile(string filepath, string format)
         {

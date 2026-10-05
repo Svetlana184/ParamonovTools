@@ -11,11 +11,12 @@ namespace VidoeConverter.services
         public void Validate(VideoFile video)
         {
             if (string.IsNullOrWhiteSpace(video.FilePath))
-            {
-                throw new ArgumentException("путь неверный");
-            }
-            Console.WriteLine("Видео прошло проверку");
+                throw new ArgumentException("Путь к файлу не может быть пустым.");
 
+            if (!File.Exists(video.FilePath))
+                throw new FileNotFoundException($"Файл не найден по пути: {video.FilePath}");
+
+            Console.WriteLine("Видео успешно прошло проверку существования.");
         }
     }
 }
