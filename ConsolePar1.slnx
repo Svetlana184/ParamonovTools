@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/Console3/">
-    <Project Path="4_prototype/ConsoleApp3.csproj" />
-  </Folder>
   <Folder Name="/Labs/">
     <Project Path="Labs/Lab_1/Lab_1.csproj" />
     <Project Path="Labs/Lab_10/Lab_10.csproj" />
@@ -16,14 +13,11 @@
     <Project Path="Labs/Lab__7/Lab__7.csproj" Id="da04c4d1-a413-4e19-84b4-f83f58e4a70b" />
   </Folder>
   <Project Path="10_facade/10_facade.csproj" />
-  <Project Path="1_factory_method/ConsolePar1.csproj" />
   <Project Path="3_builder/3_builder.csproj" />
   <Project Path="5_singletone/5_singletone.csproj" />
   <Project Path="6_adapter_game/6_adapter_game.csproj" />
   <Project Path="7_composite/7_composite.csproj" />
   <Project Path="8_bridge/8_bridge.csproj" />
   <Project Path="9_decorator/9_decorator.csproj" />
-  <Project Path="Factory/Factory.csproj" />
-  <Project Path="Lab2/Lab2.csproj" />
   <Project Path="VidoeConverter/VidoeConverter.csproj" />
 </Solution>
