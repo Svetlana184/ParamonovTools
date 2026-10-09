@@ -29,4 +29,7 @@ map.DisplayMap();
 
 MarkerStyle style1 = factory.GetMarkerStyle("офис", "office.png", "green");
 MarkerStyle style2 = factory.GetMarkerStyle("офис", "office.png", "green");
-Console.WriteLine(ReferenceEquals(style1, style2));
+Console.WriteLine("Стиль одинаковый - " + ReferenceEquals(style1, style2));
+
+Console.WriteLine(factory.CountStyles());
+Console.WriteLine(map.CountMarkers());

@@ -21,7 +21,7 @@ namespace Lab_12_flyweight.Factories
 
         public string CountStyles()
         {
-            
+            return "Создано стилей: " + _markers.Count();
         }
     }
 }

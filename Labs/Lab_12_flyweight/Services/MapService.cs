@@ -54,9 +54,9 @@ namespace Lab_12_flyweight.Services
             }
         }
 
-        public int CountMarkers()
+        public string CountMarkers()
         {
-            return mapMarkers.Count;
+            return "Всего объектов на карте: " + mapMarkers.Count;
         }
     }
 }
