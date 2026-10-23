@@ -15,6 +15,7 @@
   </Folder>
   <Project Path="10_facade/10_facade.csproj" />
   <Project Path="11_flyweight/11_flyweight.csproj" Id="9bd7fb1f-e44a-4c76-87d5-7542d8883e37" />
+  <Project Path="13_COR/13_COR.csproj" Id="6ec59483-87d7-4bd9-9546-cca563ad50d1" />
   <Project Path="3_builder/3_builder.csproj" />
   <Project Path="5_singletone/5_singletone.csproj" />
   <Project Path="6_adapter_game/6_adapter_game.csproj" />
