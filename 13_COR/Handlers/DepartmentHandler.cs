@@ -9,7 +9,7 @@ namespace _13_COR.Handlers
     {
         protected override void Approve(PurchaseRequest purchaseRequest)
         {
-            Console.WriteLine($"Департамент не согласовал запрос: {purchaseRequest.Description}" + $"\n{purchaseRequest.Amount} рублей");
+            Console.WriteLine($"Департамент согласовал запрос: {purchaseRequest.Description}" + $"\n{purchaseRequest.Amount} рублей");
         }
 
         protected override bool CanApprove(PurchaseRequest purchaseRequest)
